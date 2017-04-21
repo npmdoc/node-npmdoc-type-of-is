@@ -1,0 +1,374 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+    >type-of-is (v3.5.1)</a>
+</h1>
+<h4>Determine and test types using constructor or {}.toString</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.type-of-is">module type-of-is</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.type-of-is.type-of-is">
+            function <span class="apidocSignatureSpan"></span>type-of-is
+            <span class="apidocSignatureSpan">(obj, type)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.type-of-is.any">
+            function <span class="apidocSignatureSpan">type-of-is.</span>any
+            <span class="apidocSignatureSpan">(obj, tests)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.type-of-is.extension">
+            function <span class="apidocSignatureSpan">type-of-is.</span>extension
+            <span class="apidocSignatureSpan">(_Extension, _Base)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.type-of-is.instance">
+            function <span class="apidocSignatureSpan">type-of-is.</span>instance
+            <span class="apidocSignatureSpan">(obj, test)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.type-of-is.is">
+            function <span class="apidocSignatureSpan">type-of-is.</span>is
+            <span class="apidocSignatureSpan">(obj, test)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.type-of-is.of">
+            function <span class="apidocSignatureSpan">type-of-is.</span>of
+            <span class="apidocSignatureSpan">(obj)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.type-of-is.string">
+            function <span class="apidocSignatureSpan">type-of-is.</span>string
+            <span class="apidocSignatureSpan">(obj)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.type-of-is" id="apidoc.module.type-of-is">module type-of-is</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.type-of-is.type-of-is" id="apidoc.element.type-of-is.type-of-is">
+        function <span class="apidocSignatureSpan"></span>type-of-is
+        <span class="apidocSignatureSpan">(obj, type)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">type-of-is = function (obj, type) {
+  if (arguments.length == 1) {
+    return of(obj);
+  } else {
+    if (is(type, Array)) {
+      return any(obj, type);
+    } else {
+      return is(obj, type);
+    }
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.type-of-is.any" id="apidoc.element.type-of-is.any">
+        function <span class="apidocSignatureSpan">type-of-is.</span>any
+        <span class="apidocSignatureSpan">(obj, tests)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function any(obj, tests) {
+  if (!is(tests, Array)) {
+    throw (&#x22;Second argument to .any() should be array&#x22;)
+  }
+  for (var i = 0; i &#x3c; tests.length; i++) {
+    var test = tests[i];
+    if (is(obj, test)) {
+      return true;
+    }
+  }
+  return false;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+
+// Returning constructor as type allows it to be used to create new objects i.e.
+var s = &#x22;s&#x22;;
+var t = new Type.of(s)(&#x22;t&#x22;);
+console.log(t.toUpperCase());   // &#x22;T&#x22;
+
+// Type.<span class="apidocCodeKeywordSpan">any</span>(obj, [Array, Of, Types]) and Type(obj, [Array, Of, Types]) should test whether
+// the object is any of the passed in types
+var str = &#x27;hihihi&#x27;;
+console.log(Type.any(str, [String, Number, Array])); // true
+console.log(Type(str, [Array, RegExp]));             // false
+
+// multi-frame dom
+var iFrame = document.createElement(&#x27;IFRAME&#x27;);
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.type-of-is.extension" id="apidoc.element.type-of-is.extension">
+        function <span class="apidocSignatureSpan">type-of-is.</span>extension
+        <span class="apidocSignatureSpan">(_Extension, _Base)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function extension(_Extension, _Base) {
+  return instance(_Extension.prototype, _Base);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```javascript
+var Type = require(&#x27;type-of-is&#x27;);
+
+Type.of(obj);              // returns constructor type of an object
+Type.string(obj);          // provides type as String
+Type.is(obj, type);        // tests whether obj is of type (constructor or String)
+Type.instance(obj, type);  // wrapper of &#x22;obj instanceof type&#x22;
+Type.<span class="apidocCodeKeywordSpan">extension</span>(SomeCoffeeScriptClassThatExtendsBarf, SomeCoffeeScriptClassNamedBarf)
+
+// The top level Type export delegates to Type.of or Type.is based on argument count
+
+Type(obj) === Type.of(obj);
+Type(obj, type) === Type.is(obj, type);
+```
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.type-of-is.instance" id="apidoc.element.type-of-is.instance">
+        function <span class="apidocSignatureSpan">type-of-is.</span>instance
+        <span class="apidocSignatureSpan">(obj, test)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function instance(obj, test) {
+  return (obj instanceof test);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+};
+
+var ralph = new Person(&#x27;Ralph&#x27;);
+
+Type.of(ralph);                  // [Function: Person]
+Type.is(ralph, Person);          // true
+Type.is(ralph, Object);          // false
+Type.<span class="apidocCodeKeywordSpan">instance</span>(ralph, Person);    // true
+Type.instance(ralph, Object);    // true
+```
+
+
+# Latest Version
+
+3.4.0
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.type-of-is.is" id="apidoc.element.type-of-is.is">
+        function <span class="apidocSignatureSpan">type-of-is.</span>is
+        <span class="apidocSignatureSpan">(obj, test)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function is(obj, test) {
+  var typer = (of(test) === String) ? stringType : of;
+  return (typer(obj) === test);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+# Description
+
+Sensible / unsurprising JavaScript type detection and comparison using a combination of ({}).toString and constructors.
+
+
+### Built in objects / primitives
+
+| obj                       | Type.of(obj)  | Type.<span class="apidocCodeKeywordSpan">is</span>(...) === true         |
+| ------------------------- |:-------------:| ----------------------------- |
+| ```{ x : 2 }```           | Object        | ```Type.is(obj, Object)```    |
+| ```function () {}```      | Function      | ```Type.is(obj, Function)```  |
+| ```[1, 2, 3]```           | Array         | ```Type.is(obj, Array)```     |
+| ```&#x22;barf&#x22;```              | String        | ```Type.is(obj, String)```    |
+| ```true```                | Boolean       | ```Type.is(obj, Boolean)```   |
+| ```10```                  | Number        | ```Type.is(obj, Number)```    |
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.type-of-is.of" id="apidoc.element.type-of-is.of">
+        function <span class="apidocSignatureSpan">type-of-is.</span>of
+        <span class="apidocSignatureSpan">(obj)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function of(obj) {
+  if ((obj === null) || (obj === undefined)) {
+    return obj;
+  } else {
+    return obj.constructor;
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+# Description
+
+Sensible / unsurprising JavaScript type detection and comparison using a combination of ({}).toString and constructors.
+
+
+### Built in objects / primitives
+
+| obj                       | Type.<span class="apidocCodeKeywordSpan">of</span>(obj)  | Type.is(...) === true         |
+| ------------------------- |:-------------:| ----------------------------- |
+| ```{ x : 2 }```           | Object        | ```Type.is(obj, Object)```    |
+| ```function () {}```      | Function      | ```Type.is(obj, Function)```  |
+| ```[1, 2, 3]```           | Array         | ```Type.is(obj, Array)```     |
+| ```&#x22;barf&#x22;```              | String        | ```Type.is(obj, String)```    |
+| ```true```                | Boolean       | ```Type.is(obj, Boolean)```   |
+| ```10```                  | Number        | ```Type.is(obj, Number)```    |
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.type-of-is.string" id="apidoc.element.type-of-is.string">
+        function <span class="apidocSignatureSpan">type-of-is.</span>string
+        <span class="apidocSignatureSpan">(obj)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">string = function (obj) {
+  // [object Blah] -&#x3e; Blah
+  var stype = _toString.call(obj).slice(8, -1);
+
+  if ((obj === null) || (obj === undefined)) {
+    return stype.toLowerCase();
+  }
+
+  var ctype = of(obj);
+
+  if (ctype &#x26;&#x26; !isBuiltIn(ctype)) {
+    return ctype.name;
+  } else {
+    return stype;
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+# Usage
+
+```javascript
+var Type = require(&#x27;type-of-is&#x27;);
+
+Type.of(obj);              // returns constructor type of an object
+Type.<span class="apidocCodeKeywordSpan">string</span>(obj);          // provides type as String
+Type.is(obj, type);        // tests whether obj is of type (constructor or String)
+Type.instance(obj, type);  // wrapper of &#x22;obj instanceof type&#x22;
+Type.extension(SomeCoffeeScriptClassThatExtendsBarf, SomeCoffeeScriptClassNamedBarf)
+
+// The top level Type export delegates to Type.of or Type.is based on argument count
+
+Type(obj) === Type.of(obj);
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
